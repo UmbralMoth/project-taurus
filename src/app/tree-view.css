@@ -1,0 +1,91 @@
+/* --- React Arborist Tree View Overrides ---
+
+/* Style for the main container */
+.tree-view-container {
+  background-color: var(--md-sys-color-surface-container);
+  border-radius: var(--md-sys-shape-corner-medium);
+  overflow: hidden;
+}
+
+/* Style for each node row */
+.node {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  border-radius: 8px;
+  transition: background-color 150ms ease-in-out;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+/* Hover effect for nodes */
+.node:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+/* Selected node style */
+.node-selected {
+  background-color: var(--md-sys-color-secondary-container) !important;
+  color: var(--md-sys-color-on-secondary-container) !important;
+}
+
+/* Icon styling */
+.node-icon {
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.node-selected .node-icon {
+    color: var(--md-sys-color-on-secondary-container);
+}
+
+/* Text styling */
+.node-text {
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ID Pill for non-category items */
+.node-id-pill {
+  font-size: 0.75rem; /* 12px */
+  padding: 2px 6px;
+  border-radius: 12px;
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface-variant);
+  margin-left: 8px;
+}
+
+.node-selected .node-id-pill {
+    background-color: var(--md-sys-color-secondary);
+    color: var(--md-sys-color-on-secondary);
+}
+
+/* Chevron icon for categories */
+.chevron-icon {
+  transition: transform 200ms ease-in-out;
+}
+
+/* Custom scrollbar to match the theme */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--md-sys-color-surface-container-high);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--md-sys-color-outline);
+}

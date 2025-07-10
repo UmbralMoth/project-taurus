@@ -1,0 +1,183 @@
+{
+  "worldState": {
+    "currentWorldTime": "1054-03-15T08:00:00Z",
+    "currentEra": "The Age of Sundering",
+    "globalConditions": {
+      "weather": "Clear skies",
+      "politicalClimate": "Tense peace between the Northern Kingdom and the Sunstone Empire."
+    },
+    "characters": {
+      "char_1": {
+        "id": "char_1",
+        "name": "Alistair Ironhand",
+        "description": "A grizzled veteran of the Northern Wars, now serving as a mercenary. He has a prosthetic iron hand, a consequence of a past battle.",
+        "backstorySummary": "Born in the cold north, Alistair fought for the kingdom before becoming disillusioned. He now wanders the land, taking coin for his sword.",
+        "personalityTraits": ["Cynical", "Pragmatic", "Loyal to his comrades"],
+        "goals": ["Earn enough to retire peacefully", "Find the mage who cursed his hand"],
+        "fearsAndWeaknesses": ["Deep water", "Magic users"],
+        "beliefsAndValues": ["A contract is binding", "Strength is the only true law"],
+        "voiceAndMannerisms": "Speaks in a low growl, often squints.",
+        "sexualHistorySummary": "A few brief relationships, nothing lasting.",
+        "sexualBoundaries": ["No public displays of affection"],
+        "attributes": {
+          "species": "Human",
+          "gender": "Male",
+          "age": 42,
+          "physical": {
+            "physicalAppearance": {
+              "hair": "Black with grey streaks",
+              "eyes": "Steel grey",
+              "height": "6'2''"
+            },
+            "bodyType": "Muscular"
+          },
+          "skillsAndProficiencies": {
+            "swordsmanship": "Master",
+            "tracking": "Expert"
+          },
+          "stats": {
+            "strength": "18",
+            "dexterity": "12",
+            "constitution": "16"
+          },
+          "distinguishingFeatures": ["Prosthetic iron left hand", "A long scar over his right eye"],
+          "sexual": {
+              "sexualOrientation": "Heterosexual",
+              "romanticSexualPreferences": ["Strong women"],
+              "kinks": [],
+              "sexualInterests": []
+          }
+        },
+        "state": {
+          "hunger": 50,
+          "thirst": 40,
+          "exhaustion": 20,
+          "afflictions": [],
+          "wounds": [],
+          "currentEmotionalState": "Neutral",
+          "health": 100,
+          "energy": 80,
+          "mentalState": "Stable",
+          "statusEffects": []
+        },
+        "inventory": [],
+        "relationships": {},
+        "currentLocationID": "loc_1",
+        "lastAction": "Patrolling the city walls.",
+        "motivation": "Coin and the hope of a quiet life."
+      },
+      "char_2": {
+        "id": "char_2",
+        "name": "Elara Nightshade",
+        "description": "A mysterious sorceress from the Sunstone Empire, her motives are as veiled as her face.",
+        "backstorySummary": "Trained in the arcane arts from a young age, Elara is on a secret mission for the Empress.",
+        "personalityTraits": ["Enigmatic", "Intelligent", "Ambitious"],
+        "goals": ["Acquire ancient artifacts of power"],
+        "fearsAndWeaknesses": ["Losing control of her magic"],
+        "beliefsAndValues": ["Knowledge is power"],
+        "voiceAndMannerisms": "Speaks softly, with a slight accent of the southern isles.",
+        "sexualHistorySummary": "None to speak of.",
+        "sexualBoundaries": ["Prefers to keep her distance"],
+        "attributes": {
+          "species": "Human",
+          "gender": "Female",
+          "age": 28,
+          "physical": {
+            "physicalAppearance": {
+              "hair": "Jet black",
+              "eyes": "Emerald green",
+              "height": "5'7''"
+            },
+            "bodyType": "Slender"
+          },
+          "skillsAndProficiencies": {
+            "arcaneMagic": "Master",
+            "alchemy": "Adept"
+          },
+          "stats": {
+            "intelligence": "20",
+            "wisdom": "16",
+            "charisma": "14"
+          },
+          "distinguishingFeatures": ["A silver locket she never takes off"],
+          "sexual": {
+              "sexualOrientation": "Bisexual",
+              "romanticSexualPreferences": ["Intellectuals"],
+              "kinks": [],
+              "sexualInterests": []
+          }
+        },
+        "state": {
+          "hunger": 60,
+          "thirst": 50,
+          "exhaustion": 10,
+          "afflictions": [],
+          "wounds": [],
+          "currentEmotionalState": "Calm",
+          "health": 100,
+          "energy": 90,
+          "mentalState": "Focused",
+          "statusEffects": []
+        },
+        "inventory": [],
+        "relationships": {},
+        "currentLocationID": "loc_2",
+        "lastAction": "Reading a tome in the library.",
+        "motivation": "Uncovering lost secrets."
+      }
+    },
+    "locations": {
+      "loc_1": {
+        "id": "loc_1",
+        "name": "The Prancing Pony Inn",
+        "description": "A bustling inn in the heart of the capital city, known for its strong ale and rowdy clientele.",
+        "type": "Inn",
+        "properties": {
+          "beds": 20,
+          "quality": "Average"
+        }
+      },
+      "loc_2": {
+        "id": "loc_2",
+        "name": "The Royal Library",
+        "description": "A vast repository of knowledge, containing books and scrolls from across the ages.",
+        "type": "Library",
+        "properties": {
+          "security": "High"
+        }
+      }
+    },
+    "items": {
+      "item_1": {
+        "id": "item_1",
+        "name": "Iron Sword",
+        "description": "A standard-issue longsword, reliable and sharp.",
+        "type": "Weapon",
+        "quantity": 1,
+        "properties": {
+          "damage": "1d8"
+        },
+        "locationID": "loc_1",
+        "ownerID": "char_1",
+        "condition": "Good"
+      }
+    },
+    "loreEntries": {
+      "lore_1": {
+        "id": "lore_1",
+        "title": "The Northern Wars",
+        "type": "History",
+        "description": "A series of brutal conflicts between the Northern Kingdom and the barbarian tribes of the frozen wastes.",
+        "relatedLore": [],
+        "tags": ["war", "history", "north"]
+      }
+    }
+  },
+  "narrativeContext": {
+    "beats": [
+      { "id": "1", "text": "The sun rises over the city of Aethel, casting long shadows across the cobblestone streets.", "source": "gemini", "timestamp": "2025-07-09T10:00:00Z", "eventID": "1" },
+      { "id": "2", "text": "I draw my sword.", "source": "user", "timestamp": "2025-07-09T10:01:00Z", "eventID": "2" },
+      { "id": "3", "text": "The blade sings as it leaves the scabbard, its polished surface reflecting the dawn's early light. The air grows still, heavy with anticipation.", "source": "gemini", "timestamp": "2025-07-09T10:02:00Z", "eventID": "3" }
+    ]
+  }
+}
