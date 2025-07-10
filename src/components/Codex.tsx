@@ -23,42 +23,64 @@ const AccordionSection = ({ title, icon, children, isOpen, onToggle }: { title: 
   );
 };
 
-const Codex = ({ data, onSelectEntity, selectedEntityId }: { data: WorldState | null, onSelectEntity: (entity: any) => void, selectedEntityId: string | null }) => {
-  const [openSection, setOpenSection] = useState<string | null>('Characters');
+const Codex = ({ data, onSelectEntity, selectedEntityId, openSections, onToggleSection, searchTerm, onSearchChange }: { data: WorldState | null, onSelectEntity: (entity: any) => void, selectedEntityId: string | null, openSections: string[], onToggleSection: (section: string) => void, searchTerm: string, onSearchChange: (term: string) => void }) => {
 
   if (!data || !data.worldState) return null;
 
   const { characters, locations, items, loreEntries } = data.worldState;
 
-  const sections = [
+  const filterEntities = (entities: any[]) => {
+    if (!searchTerm) return entities;
+    return entities.filter(entity =>
+      (entity.name || entity.title || '').toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
+  const allSections = [
     { title: 'Characters', icon: <CharacterIcon />, entities: Object.values(characters || {}) },
     { title: 'Locations', icon: <LocationIcon />, entities: Object.values(locations || {}) },
     { title: 'Items', icon: <ItemIcon />, entities: Object.values(items || {}) },
     { title: 'Lore', icon: <LoreIcon />, entities: Object.values(loreEntries || {}) },
   ];
 
+  const visibleSections = allSections.map(section => ({
+    ...section,
+    entities: filterEntities(section.entities),
+  })).filter(section => section.entities.length > 0);
+
   return (
-    <div className="h-full overflow-y-auto custom-scrollbar z-20">
-      {sections.map(({ title, icon, entities }) => (
-        <AccordionSection
-          key={title}
-          title={title}
-          icon={icon}
-          isOpen={openSection === title}
-          onToggle={() => setOpenSection(openSection === title ? null : title)}
-        >
-          <div className="space-y-2">
-            {entities.map((entity: any) => (
-              <div
-                key={entity.id}
-                onClick={() => onSelectEntity(entity)}
-                className={`p-2 rounded-md cursor-pointer transition-colors duration-150 ${selectedEntityId === entity.id ? 'bg-red-800/50 text-red-200' : 'hover:bg-stone-700/50'}`}>
-                {entity.name || entity.title}
-              </div>
-            ))}
-          </div>
-        </AccordionSection>
-      ))}
+    <div className="h-full flex flex-col">
+      <div className="p-3 border-b border-stone-700/50">
+        <input
+          type="text"
+          placeholder="Search Codex..."
+          value={searchTerm}
+          onChange={(e) => onSearchChange(e.target.value)}
+          className="w-full p-2 rounded-md bg-stone-800 border border-stone-700 text-stone-200 placeholder-stone-400 focus:outline-none focus:ring-1 focus:ring-red-500"
+        />
+      </div>
+      <div className="flex-1 overflow-y-auto custom-scrollbar">
+        {visibleSections.map(({ title, icon, entities }) => (
+          <AccordionSection
+            key={title}
+            title={title}
+            icon={icon}
+            isOpen={openSections.includes(title)}
+            onToggle={() => onToggleSection(title)}
+          >
+            <div className="space-y-2">
+              {entities.map((entity: any) => (
+                <div
+                  key={entity.id}
+                  onClick={() => onSelectEntity(entity)}
+                  className={`p-2 rounded-md cursor-pointer transition-colors duration-150 ${selectedEntityId === entity.id ? 'bg-red-800/50 text-red-200' : 'hover:bg-stone-700/50'}`}>
+                  {entity.name || entity.title}
+                </div>
+              ))}
+            </div>
+          </AccordionSection>
+        ))}
+      </div>
     </div>
   );
 };

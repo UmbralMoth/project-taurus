@@ -18,6 +18,21 @@ export type RightTab = 'Inspector' | 'Tools' | 'Settings';
 
 type SelectedEntity = Character | Location | Item | LoreEntry | null;
 
+const CodexContent = ({ story, onSelectEntity, selectedEntityId, openSections, onToggleSection, searchTerm, onSearchChange }: any) => {
+  if (!story) return null;
+  return (
+    <Codex 
+      data={story} 
+      onSelectEntity={onSelectEntity} 
+      selectedEntityId={selectedEntityId}
+      openSections={openSections}
+      onToggleSection={onToggleSection}
+      searchTerm={searchTerm}
+      onSearchChange={onSearchChange}
+    />
+  );
+};
+
 export default function Home() {
   const { story, narrativeBeats, addNarrativeBeat, updateEntity, loading, error } = useStory();
   const isMobile = useIsMobile();
@@ -28,6 +43,18 @@ export default function Home() {
   const [activeRightTab, setActiveRightTab] = useState<RightTab>('Inspector');
   
   const [selectedEntity, setSelectedEntity] = useState<SelectedEntity>(null);
+  const [openCodexSections, setOpenCodexSections] = useState<string[]>(['Characters']);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleToggleCodexSection = (sectionTitle: string) => {
+    setOpenCodexSections(prevOpenSections => {
+      if (prevOpenSections.includes(sectionTitle)) {
+        return prevOpenSections.filter(title => title !== sectionTitle);
+      } else {
+        return [...prevOpenSections, sectionTitle];
+      }
+    });
+  };
 
   const handleSend = async (text: string) => {
     if (text) {
@@ -73,13 +100,6 @@ export default function Home() {
     { name: 'Settings', icon: <SettingsIcon /> },
   ];
 
-  const CodexContent = () => {
-    if (!story) return null;
-    return (
-      <Codex data={story} onSelectEntity={handleSelectEntity} selectedEntityId={selectedEntity?.id || null} />
-    );
-  };
-
   const ToolsContent = () => {
     return (
       <div className="space-y-4">
@@ -118,7 +138,15 @@ export default function Home() {
       <AnimatePresence>
         {isLeftPanelOpen && (
           <SidePanel side="left" isMobile={isMobile}>
-            <CodexContent />
+            <CodexContent 
+              story={story}
+              onSelectEntity={handleSelectEntity}
+              selectedEntityId={selectedEntity?.id || null}
+              openSections={openCodexSections}
+              onToggleSection={handleToggleCodexSection}
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+            />
           </SidePanel>
         )}
       </AnimatePresence>
