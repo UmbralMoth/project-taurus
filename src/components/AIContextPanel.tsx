@@ -1,6 +1,10 @@
 "use client";
 
+import { useState } from 'react';
+
 const AIContextPanel = () => {
+  const [contextDepth, setContextDepth] = useState(5);
+
   return (
     <div className="space-y-4">
       <h3 className="text-lg font-bold text-stone-200">AI Model Context</h3>
@@ -19,8 +23,16 @@ const AIContextPanel = () => {
         <p className="text-stone-400 text-sm">Configure how much world data and recent narrative is sent to the AI for context generation.</p>
         <div className="mt-2">
           <label htmlFor="context-depth" className="block text-stone-300 text-sm mb-1">Narrative Context Depth:</label>
-          <input type="range" id="context-depth" min="1" max="10" value="5" className="w-full h-2 bg-stone-700 rounded-lg appearance-none cursor-pointer" />
-          <span className="text-stone-400 text-xs">5 recent beats</span>
+          <input 
+            type="range" 
+            id="context-depth" 
+            min="1" 
+            max="10" 
+            value={contextDepth} 
+            onChange={(e) => setContextDepth(Number(e.target.value))} 
+            className="w-full h-2 bg-stone-700 rounded-lg appearance-none cursor-pointer" 
+          />
+          <span className="text-stone-400 text-xs">{contextDepth} recent beats</span>
         </div>
         <div className="mt-2">
           <label htmlFor="entity-inclusion" className="block text-stone-300 text-sm mb-1">Entity Inclusion:</label>

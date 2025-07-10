@@ -15,7 +15,7 @@ interface SidePanelProps {
 const SidePanel = ({ side, tabs, activeTab, onTabChange, children, isMobile }: SidePanelProps) => {
   return (
     <motion.div
-      className={`absolute top-0 h-full bg-stone-800/80 backdrop-blur-md shadow-2xl flex flex-col ${side === 'left' ? 'left-0' : 'right-0'}`}
+      className={`absolute top-0 h-full bg-stone-800/80 backdrop-blur-md shadow-2xl flex flex-col ${side === 'left' ? 'left-0' : 'right-0'} z-10`}
       initial={{ x: side === 'left' ? '-100%' : '100%' }}
       animate={{ x: '0%' }}
       exit={{ x: side === 'left' ? '-100%' : '100%' }}

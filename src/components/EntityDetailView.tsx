@@ -44,6 +44,18 @@ const EntityDetailView = ({ entity, onSave, onBack, isMobile }: { entity: Select
     const { name, value } = e.target;
     setEditableEntity(prev => {
       if (!prev) return null;
+
+      const keys = name.split('.');
+      if (keys.length > 1) {
+        // Handle nested objects if necessary
+        return { ...prev };
+      }
+
+      // Handle arrays from comma-separated strings
+      if (Array.isArray((prev as any)[name])) {
+        return { ...prev, [name]: value.split(', ').map(item => item.trim()) };
+      }
+
       return { ...prev, [name]: value };
     });
   };
