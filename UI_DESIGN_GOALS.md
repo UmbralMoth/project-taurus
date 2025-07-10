@@ -18,10 +18,14 @@ A distinct visual theme is applied throughout:
 The primary focus of the application is the story itself, visualized as a dynamic tapestry:
 -   **Layout:** Single-column, vertical flow, centered on the screen.
 -   **Narrative Beats:**
-    -   **AI Narration:** Displayed as rectangular blocks, representing the flowing fabric of the story.
-    -   **User Actions:** Displayed as distinct, pill-shaped "Action Nodes," representing key decisions or interventions.
--   **Connectors:** Vertical "threads" visually connect each narrative beat, creating a continuous timeline.
--   **Scrolling:** Smooth vertical scrolling for natural reading.
+    -   **AI Narration:** Displayed as rectangular "parchment fragments" with a warm, off-white background, subtle texture, and soft shadows.
+    -   **User Actions:** Displayed as distinct, pill-shaped "wax seals" or "stamps" in rich crimson, with an embossed effect.
+-   **Connectors:** Dynamic SVG-based "narrative threads" visually connect each narrative beat, creating a continuous timeline. These threads feature small "ball points" at their ends, appearing to be "tacked on" to the narrative fragments.
+-   **Scrolling:** Smooth vertical scrolling with a "click 'n' drag" interaction for intuitive navigation.
+-   **Narrative Continuation:** The bottom of the tapestry presents a "decision point" with options for continuing the narrative:
+    -   "Suggest Options": Prompts AI to generate narrative choices.
+    -   "Write My Own": Reveals a free-form text input.
+    -   "AI Continues Automatically": Triggers AI to advance the narrative independently.
 
 ## 4. Workspace Panels: Codex & Inspector
 
@@ -33,13 +37,13 @@ Two primary side panels provide contextual tools and information, acting as exte
 ### 4.1. Left Panel: The "Codex" (World Browser)
 
 This panel serves as the user's comprehensive "World Bible," for browsing all diegetic elements:
--   **Content:** A unified, browsable **TreeView graph** (`WorldDataTree`) displaying:
+-   **Content:** A unified, browsable accordion view displaying:
     -   Characters
     -   Locations
     -   Items
     -   Lore
--   **Functionality:** Includes a search bar and type filters for efficient navigation.
--   **Visuals:** Features continuous and dynamic graph lines connecting categories and entities. Entity ID pills are rendered on top of cards for clear visibility.
+-   **Functionality:** Includes a search bar for filtering entities and allows multiple categories to be open simultaneously. Each entity features an "active" toggle for contextual simulation.
+-   **Visuals:** Entities are presented as card-like elements within collapsible accordion sections.
 -   **No Internal Tabs:** The content is unified within a single view.
 
 ### 4.2. Right Panel: The "Inspector" (Tools & Actions)
@@ -47,8 +51,8 @@ This panel serves as the user's comprehensive "World Bible," for browsing all di
 This panel is the user's "Toolkit and Magnifying Glass," dedicated to non-diegetic elements and actions:
 -   **Content:** A tabbed interface for various tools:
     -   **"Inspector" Tab:** Displays the `EntityDetailView` for the currently selected entity (from the Codex), allowing for detailed viewing and future editing.
-    -   **"Tools" Tab:** Combines `AssistantNotes` (meta-narrative guidance, observations) and `AIContext` (for managing specific context provided to the AI model).
-    -   **"Settings" Tab:** For application-wide configurations.
+    -   **"World" Tab:** Manages global simulation settings, including AI context depth and future global conditions.
+    -   **"Assistant" Tab:** Provides direct meta-interaction with the AI, primarily for narrative control (e.g., "Continue Narrative" button).
 -   **Dynamic Activation:** Selecting an entity in the Codex automatically opens the Right Panel to the "Inspector" tab.
 -   **Tab Styling:** Tabs are designed to take up the entire horizontal space, adapting to content without overflow. Scrollbars within the panel match the "Ink & Parchment" theme.
 
@@ -58,7 +62,12 @@ The previous toolbar has been replaced by subtle "drawer buttons" located on the
 -   **Function:** Clicking a button toggles the visibility of the corresponding side panel.
 -   **Visuals:** Uses thematic chevron icons that point outward when the panel is closed and inward when it is open.
 
-## 6. General UI Principles
+## 6. Main Toolbar & Floating Modals
+
+A new, elegant `MainToolbar` is positioned at the bottom center of the screen, providing quick access to key functionalities.
+-   **Assistant Notes Modal:** Accessed via a button on the `MainToolbar`, this is a draggable, floating modal window for comprehensive management of Assistant Notes (adding, viewing, editing, deleting).
+
+## 7. General UI Principles
 
 -   **Cohesion:** All elements work together to reinforce the central metaphor and theme.
 -   **Modernity:** Utilizes contemporary UI patterns and smooth animations.

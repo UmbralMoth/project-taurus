@@ -4,21 +4,23 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SidePanel from '@/components/SidePanel';
 import EntityDetailView from '@/components/EntityDetailView';
-import AssistantNotes from '@/components/AssistantNotes';
-import SettingsPanel from '@/components/SettingsPanel';
-import AIContextPanel from '@/components/AIContextPanel';
+
+import WorldPanel from '@/components/WorldPanel';
+import AssistantPanel from '@/components/AssistantPanel';
 import NarrativeTapestry from '@/components/NarrativeTapestry';
 import { useStory } from '@/context/StoryContext';
 import { NarrativeBeat, Character, Location, Item, LoreEntry } from '@/types';
 import { CharacterIcon, AssistantIcon, SettingsIcon, ChevronIcon } from '@/components/Icons';
 import Codex from '@/components/Codex';
 import { useIsMobile } from '@/hooks/useIsMobile';
+import MainToolbar from '@/components/MainToolbar';
+import AssistantNotesModal from '@/components/AssistantNotesModal';
 
 export type RightTab = 'Inspector' | 'Tools' | 'Settings';
 
 type SelectedEntity = Character | Location | Item | LoreEntry | null;
 
-const CodexContent = ({ story, onSelectEntity, selectedEntityId, openSections, onToggleSection, searchTerm, onSearchChange }: any) => {
+const CodexContent = ({ story, onSelectEntity, selectedEntityId, openSections, onToggleSection, searchTerm, onSearchChange, activeEntityIds, onToggleActiveEntity }: any) => {
   if (!story) return null;
   return (
     <Codex 
@@ -29,6 +31,8 @@ const CodexContent = ({ story, onSelectEntity, selectedEntityId, openSections, o
       onToggleSection={onToggleSection}
       searchTerm={searchTerm}
       onSearchChange={onSearchChange}
+      activeEntityIds={activeEntityIds}
+      onToggleActiveEntity={onToggleActiveEntity}
     />
   );
 };
@@ -39,12 +43,24 @@ export default function Home() {
   
   const [isLeftPanelOpen, setIsLeftPanelOpen] = useState(false);
   const [isRightPanelOpen, setIsRightPanelOpen] = useState(false);
+  const [isAssistantNotesModalOpen, setIsAssistantNotesModalOpen] = useState(false);
   
   const [activeRightTab, setActiveRightTab] = useState<RightTab>('Inspector');
   
   const [selectedEntity, setSelectedEntity] = useState<SelectedEntity>(null);
   const [openCodexSections, setOpenCodexSections] = useState<string[]>(['Characters']);
   const [searchTerm, setSearchTerm] = useState('');
+  const [activeEntityIds, setActiveEntityIds] = useState<string[]>([]);
+
+  const handleToggleActiveEntity = (entityId: string) => {
+    setActiveEntityIds(prevActiveEntityIds => {
+      if (prevActiveEntityIds.includes(entityId)) {
+        return prevActiveEntityIds.filter(id => id !== entityId);
+      } else {
+        return [...prevActiveEntityIds, entityId];
+      }
+    });
+  };
 
   const handleToggleCodexSection = (sectionTitle: string) => {
     setOpenCodexSections(prevOpenSections => {
@@ -96,20 +112,11 @@ export default function Home() {
 
   const rightTabs = [
     { name: 'Inspector', icon: <CharacterIcon /> },
-    { name: 'Tools', icon: <AssistantIcon /> },
-    { name: 'Settings', icon: <SettingsIcon /> },
+    { name: 'World', icon: <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.002 6.002 0 0111.336 0l.001.002.002.002.002.003a.75.75 0 01-1.06 1.06l-.002-.002a4.501 4.501 0 00-9.214 0l-.002.002a.75.75 0 01-1.06-1.06l.002-.003.002-.002.001-.002z" clipRule="evenodd" /></svg> },
+    { name: 'Assistant', icon: <AssistantIcon /> },
   ];
 
-  const ToolsContent = () => {
-    return (
-      <div className="space-y-4">
-        <h3 className="text-lg font-bold text-stone-200">Assistant Notes</h3>
-        <AssistantNotes notes={[]} />
-        <h3 className="text-lg font-bold text-stone-200">AI Context</h3>
-        <AIContextPanel />
-      </div>
-    );
-  };
+  
 
   const handleSaveEntity = async (updatedEntity: SelectedEntity) => {
     if (!updatedEntity) return;
@@ -121,11 +128,11 @@ export default function Home() {
     if (activeRightTab === 'Inspector') {
       return <EntityDetailView entity={selectedEntity} onSave={handleSaveEntity} onBack={() => { setIsRightPanelOpen(false); setIsLeftPanelOpen(true); }} isMobile={isMobile} />;
     }
-    if (activeRightTab === 'Tools') {
-        return <ToolsContent />;
+    if (activeRightTab === 'World') {
+        return <WorldPanel />;
     }
-    if (activeRightTab === 'Settings') {
-        return <SettingsPanel />;
+    if (activeRightTab === 'Assistant') {
+        return <AssistantPanel />;
     }
     return null;
   };
@@ -146,12 +153,14 @@ export default function Home() {
               onToggleSection={handleToggleCodexSection}
               searchTerm={searchTerm}
               onSearchChange={setSearchTerm}
+              activeEntityIds={activeEntityIds}
+              onToggleActiveEntity={handleToggleActiveEntity}
             />
           </SidePanel>
         )}
       </AnimatePresence>
       
-      <main className="flex-1 flex flex-col relative">
+      <main className="flex-1 flex flex-col relative pb-24 bg-stone-900/80">
         <NarrativeTapestry beats={narrativeBeats} onSend={handleSend} />
       </main>
       
@@ -182,6 +191,9 @@ export default function Home() {
       >
         <ChevronIcon className={`transition-transform duration-300 ${isRightPanelOpen ? '' : 'rotate-180'}`} />
       </motion.button>
+
+      <MainToolbar onOpenAssistantNotes={() => setIsAssistantNotesModalOpen(prev => !prev)} />
+      <AssistantNotesModal isOpen={isAssistantNotesModalOpen} onClose={() => setIsAssistantNotesModalOpen(false)} />
     </div>
   );
 }
